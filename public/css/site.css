@@ -1,0 +1,267 @@
+/* Shared styles for the inner pages (about, studio, playground, contact). Same type + palette as the home page. */
+:root{--bg:#fbfaf8;--ink:#050505;--font:"Jost","Futura","Century Gothic",system-ui,sans-serif;--header-h:clamp(72px,10vh,96px);--gutter:clamp(20px,3.5vw,44px)}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font);font-weight:400;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+:focus-visible{outline:2px solid var(--ink);outline-offset:4px;border-radius:4px}
+
+.site-header{display:flex;justify-content:space-between;align-items:flex-start;padding:clamp(20px,3.5vh,34px) var(--gutter) 0}
+.home-link{font-size:.75rem;letter-spacing:.18em;text-transform:uppercase}
+.nav-link{font-size:.75rem;font-weight:400;letter-spacing:.18em;text-transform:uppercase;padding:.4em 0;background:linear-gradient(currentColor,currentColor) 0 100%/0 1px no-repeat;transition:background-size .3s ease}
+.nav-link:hover,.nav-link[aria-current="page"]{background-size:100% 1px}
+
+.btn{display:inline-flex;align-items:center;gap:1.1em;padding:1.05em 1.6em;background:var(--ink);color:var(--bg);border:1px solid var(--ink);font:inherit;font-size:.75rem;font-weight:500;letter-spacing:.18em;text-transform:uppercase;cursor:pointer;transition:background .3s ease,color .3s ease}
+.btn:hover{background:transparent;color:var(--ink)}
+
+.page{padding:clamp(24px,6vh,64px) var(--gutter) clamp(48px,10vh,120px);max-width:1400px}
+.page-wide{max-width:none;padding-right:calc(var(--gutter)*4)}
+.eyebrow{margin:0 0 1.2em;font-size:.75rem;letter-spacing:.18em;text-transform:uppercase;opacity:.6}
+.page h1{margin:0 0 .4em;font-weight:300;line-height:.9;letter-spacing:-.045em;font-size:clamp(3.5rem,12vw,10rem)}
+.page h1 em{font-style:italic;font-weight:200}
+.lede{max-width:34ch;margin:0 0 clamp(40px,8vh,96px);font-size:clamp(1.15rem,2vw,1.7rem);line-height:1.35}
+.cols{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,2fr);gap:var(--gutter)}
+.cols h2{margin:0;font-size:.75rem;font-weight:400;letter-spacing:.18em;text-transform:uppercase;opacity:.6}
+.cols p{margin:0 0 1em;max-width:52ch;font-size:1.05rem;line-height:1.55}
+
+.services{list-style:none;margin:0;padding:0;border-top:1px solid rgba(5,5,5,.2)}
+.services li{display:grid;grid-template-columns:3rem minmax(0,1fr) minmax(0,1.4fr);gap:var(--gutter);padding:1.6em 0;border-bottom:1px solid rgba(5,5,5,.2);align-items:baseline}
+.services small{font-size:.75rem;letter-spacing:.18em;opacity:.5}
+.services h3{margin:0;font-size:clamp(1.5rem,2.4vw,2.2rem);font-weight:300;letter-spacing:-.02em}
+.services p{margin:0;font-size:1rem;line-height:1.5;max-width:46ch}
+.cta-row{margin-top:clamp(20px,3vh,28px)}
+
+.play-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,260px),1fr));gap:var(--gutter)}
+.play-card{display:block}
+.play-card .ph{aspect-ratio:5/4;background:linear-gradient(155deg,var(--c1),var(--c2));transition:transform .6s cubic-bezier(.22,.8,.2,1)}
+.play-card:hover .ph{transform:skewY(-2deg) scale(1.02)}
+.play-card h3{margin:.8em 0 .15em;font-size:1.1rem;font-weight:400}
+.play-card p{margin:0;font-size:.85rem;opacity:.6}
+
+.contact-mail{display:inline-block;font-size:clamp(1.6rem,4.2vw,3.4rem);font-weight:200;letter-spacing:-.03em;background:linear-gradient(currentColor,currentColor) 0 100%/100% 1px no-repeat;padding-bottom:.1em;margin-bottom:clamp(36px,7vh,72px)}
+form{display:grid;gap:1.4em;max-width:560px}
+label{display:grid;gap:.5em;font-size:.75rem;letter-spacing:.18em;text-transform:uppercase}
+input,textarea{font:inherit;font-size:1.05rem;letter-spacing:0;text-transform:none;padding:.7em 0;border:0;border-bottom:1px solid rgba(5,5,5,.35);background:none;color:var(--ink);border-radius:0}
+input:focus,textarea:focus{outline:none;border-bottom-color:var(--ink)}
+textarea{min-height:7em;resize:vertical}
+form .btn{justify-self:start}
+
+/* ---- Shared small pieces ---- */
+.label{margin:0 0 1.6em;font-size:.75rem;font-weight:400;letter-spacing:.18em;text-transform:uppercase;opacity:.55}
+.site-foot{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:.5em var(--gutter);padding:clamp(10px,1.8vh,16px) var(--gutter);font-size:.7rem;letter-spacing:.06em;line-height:1.4}
+.site-foot p{margin:0}
+.site-foot .copy{opacity:.45}
+
+/* ---- About: one pinned screen. Title top-left and bio bottom-right never move; the scroll drives the centre. ---- */
+.about-page .site-header{position:absolute;top:0;left:0;right:0;z-index:5}
+.about-track{height:620vh;position:relative}
+.about-stage{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden}
+.about-title{position:absolute;left:var(--gutter);top:var(--header-h);margin:0;font-weight:200;line-height:1;letter-spacing:-.04em;font-size:clamp(2.4rem,5.4vw,5rem);max-width:12ch}
+.about-me{position:absolute;right:var(--gutter);bottom:calc(var(--foot-h,90px) + clamp(16px,4vh,40px));width:min(25vw,380px)}
+.about-photo{display:block;width:min(100%,calc(36vh*.807));height:auto;margin:0 0 clamp(12px,2vh,20px)}
+.about-bio{margin:0;font-size:clamp(.9rem,1.1vw,1.05rem);line-height:1.6}
+.about-centre{position:absolute;inset:0;display:grid;place-items:center;padding:calc(var(--header-h) + 8vh) var(--gutter) calc(var(--foot-h,90px) + 4vh);pointer-events:none}
+.about-centre>*{grid-area:1/1;text-align:center;max-width:32ch}
+.about-centre>.beliefs{max-width:min(60rem,88vw)}
+.beliefs{display:grid;gap:clamp(22px,4.5vh,44px)}
+.beliefs p{margin:0;font-weight:300;font-size:clamp(1.2rem,1.9vw,1.75rem);line-height:1.4;opacity:0;will-change:transform,opacity}
+.closing{opacity:0;max-width:40ch}
+.closing p{margin:0;font-size:clamp(1.05rem,1.35vw,1.25rem);line-height:1.6}
+.closing p+p{margin-top:1.2em}
+.closing .btn{margin-top:clamp(28px,5vh,48px)}
+.closing.is-live{pointer-events:auto}
+.about-page .site-foot{position:fixed;left:0;right:0;bottom:0;z-index:6;background:var(--bg);}
+.no-js .about-track{height:auto}
+.no-js .about-stage{position:static;height:auto;padding:var(--header-h) var(--gutter) 40px}
+.no-js .about-title,.no-js .about-me,.no-js .about-centre{position:static;width:auto;padding:0;margin:0 0 2em}
+.beliefs .bw{display:inline-block;white-space:nowrap}
+.beliefs .bl{display:inline-block;will-change:transform,opacity}
+.no-js .beliefs p,.no-js .closing{opacity:1}
+.no-js .about-page .site-foot{position:static}
+@media (max-width:900px){
+  .about-me{width:auto;left:var(--gutter);display:flex;align-items:flex-end;gap:14px}
+  .about-photo{flex:none;width:min(30vw,calc(26vh*.807));margin:0}
+  .about-bio{font-size:.9rem;line-height:1.5}
+  .about-centre{padding-bottom:calc(var(--foot-h,90px) + 30vh)}
+}
+
+/* ---- Studio (services) ---- */
+.studio-split{display:grid;grid-template-columns:auto minmax(0,1fr);gap:var(--gutter);align-items:start}
+.offers{list-style:none;margin:clamp(48px,12vh,140px) 0 0;padding:0;border-top:1px solid rgba(5,5,5,.2)}
+.offers li{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,2.4fr) minmax(0,.8fr);text-align:left;justify-items:start;gap:var(--gutter);padding:clamp(28px,5vh,48px) 0;border-bottom:1px solid rgba(5,5,5,.2);align-items:baseline}
+.offers h2{margin:0;font-size:clamp(1.5rem,2.4vw,2.2rem);font-weight:300;letter-spacing:-.02em;line-height:1.1}
+.offers p{margin:0;font-size:1rem;line-height:1.55}
+.offers .k{display:block;margin-bottom:.5em;font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;opacity:.5}
+.offers .price{font-size:1.25rem;font-weight:300}
+.offers .price small{display:block;margin-top:.4em;font-size:.8rem;font-weight:400;line-height:1.4;opacity:.6}
+.note{max-width:46ch;margin:clamp(16px,3vh,28px) 0 0;font-size:1rem;line-height:1.55}
+.faq{margin-top:clamp(28px,5vh,48px);max-width:46ch}
+.faq summary{list-style:none;cursor:pointer;display:inline-flex;align-items:center;gap:.6em;font-size:.75rem;letter-spacing:.18em;text-transform:uppercase}
+.faq summary::-webkit-details-marker{display:none}
+.faq .arrow{display:inline-block;transition:transform .3s ease}
+.faq[open] .arrow{transform:rotate(180deg)}
+.faq dl{margin:clamp(20px,3vh,32px) 0 0;display:grid;gap:clamp(24px,4vh,40px)}
+.faq dt{font-size:1.1rem;font-weight:400;margin-bottom:.35em}
+.faq dd{margin:0;font-size:1rem;line-height:1.55;opacity:.85}
+
+/* ---- Work ---- */
+.case{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,2fr);gap:var(--gutter);padding:clamp(32px,6vh,64px) 0;border-top:1px solid rgba(5,5,5,.2)}
+.case h2{margin:0;font-size:clamp(1.5rem,2.4vw,2.2rem);font-weight:300;letter-spacing:-.02em}
+.case dl{margin:0;display:grid;grid-template-columns:auto 1fr;gap:.9em 2em;max-width:60ch}
+.case dt{font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;opacity:.5;padding-top:.3em}
+.case dd{margin:0;line-height:1.5}
+
+/* ---- Contact ---- */
+.contact-page{min-height:100svh;display:flex;flex-direction:column}
+.contact-center{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;width:100%;margin:0 auto}
+.contact-center h1.tight{max-width:none;margin-bottom:.5em;font-weight:400}
+.contact-center .lede{margin:0 auto clamp(28px,5vh,48px)}
+.contact-center .contact-mail{margin-bottom:0;font-size:clamp(1.2rem,2.6vw,1.9rem)}
+.page h1.tight{font-size:clamp(2.6rem,7vw,6.5rem);max-width:14ch}
+select{font:inherit;font-size:1.05rem;letter-spacing:0;text-transform:none;padding:.7em 0;border:0;border-bottom:1px solid rgba(5,5,5,.35);background:none;color:var(--ink);border-radius:0;appearance:none;-webkit-appearance:none;background-image:linear-gradient(45deg,transparent 50%,currentColor 50%),linear-gradient(135deg,currentColor 50%,transparent 50%);background-position:calc(100% - 10px) 55%,calc(100% - 5px) 55%;background-size:5px 5px;background-repeat:no-repeat}
+select:focus{outline:none;border-bottom-color:var(--ink)}
+.hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+.small-print{margin:clamp(48px,9vh,96px) 0 0;font-size:.85rem;letter-spacing:.04em;opacity:.65}
+
+@media (max-width:820px){
+  .cols{grid-template-columns:1fr}
+  .services li{grid-template-columns:2rem 1fr}
+  .services li p{grid-column:2}
+  .studio-split{grid-template-columns:1fr}
+  .page-wide{padding-right:var(--gutter)}
+  .offers li{grid-template-columns:1fr;gap:14px}
+  .offers{margin-top:clamp(32px,6vh,64px)}
+  .case{grid-template-columns:1fr}
+}
+
+/* Studio page: footer sits at the bottom; open FAQ stays compact so the page fits without scrolling */
+.studio-page{min-height:100vh;min-height:100svh;display:flex;flex-direction:column}
+.studio-page .page{flex:1;width:100%}
+.studio-page .site-foot{margin-top:auto}
+.studio-page .faq{max-width:46ch;width:0;min-width:100%}
+.studio-page .faq dl{grid-template-columns:1fr;gap:14px}
+.studio-page .faq dt{font-size:.95rem;margin-bottom:.2em}
+.studio-page .faq dd{font-size:.85rem;line-height:1.45}
+/* Studio page: long-form services. Sticky intro on the left, all offer detail on the right. */
+.studio-page .page-wide{padding-right:var(--gutter)}
+.studio-long{display:grid;grid-template-columns:minmax(0,3fr) minmax(0,9fr);gap:calc(var(--gutter)*1.5);align-items:start}
+.studio-side{position:sticky;top:0}  /* top is pinned to the starting position by studio.html so it never slides up */
+.studio-side h1.tight{max-width:none;font-size:clamp(2.2rem,3.6vw,3.4rem)}
+.jump{display:flex;flex-direction:column;margin:0 0 clamp(16px,2.4vh,26px)}
+.jump a{width:fit-content;font-size:.75rem;letter-spacing:.18em;text-transform:uppercase;padding:.3em 0;opacity:.65;background:linear-gradient(currentColor,currentColor) 0 100%/0 1px no-repeat;transition:background-size .3s ease,opacity .3s ease}
+.jump a:hover,.jump a:focus-visible{opacity:1;background-size:100% 1px}
+.studio-body{padding-top:clamp(8px,2vh,24px)}
+.studio-body .block{padding:clamp(40px,8vh,88px) 0;border-bottom:1px solid rgba(5,5,5,.2);scroll-margin-top:var(--gutter)}
+.studio-body .block:first-child{padding-top:0}
+.studio-body p{margin:0 0 1em;max-width:58ch;font-size:1.12rem;line-height:1.6}
+.studio-body .big{font-size:clamp(1.4rem,2.4vw,1.95rem);font-weight:300;line-height:1.3;letter-spacing:-.01em}
+.studio-body .small{font-size:.9rem;opacity:.75}
+.studio-body .label{margin:0 0 1.2em;font-size:.75rem;font-weight:400;letter-spacing:.18em;text-transform:uppercase;opacity:.6}
+.studio-body .offer h2{margin:0 0 .4em;font-size:clamp(2.2rem,4.4vw,3.6rem);font-weight:300;letter-spacing:-.03em;line-height:1}
+.studio-body h3{margin:2em 0 .7em;font-size:.75rem;font-weight:500;letter-spacing:.18em;text-transform:uppercase}
+.studio-body h3 span{white-space:nowrap;margin-left:.8em;font-weight:400;opacity:.55}
+.studio-body .closing h2{margin:0 0 .6em;font-weight:300}
+.ul{background:linear-gradient(currentColor,currentColor) 0 100%/100% 1px no-repeat;padding-bottom:1px}
+.steps,.ticks{margin:0 0 1em;padding:0;list-style:none;max-width:58ch}
+.steps{counter-reset:s}
+.steps[start="5"]{counter-reset:s 4}
+.steps li{counter-increment:s;position:relative;padding:.8em 0 .8em 2.6rem;border-top:1px solid rgba(5,5,5,.12);font-size:1.08rem;line-height:1.55}
+.steps li:last-child{border-bottom:1px solid rgba(5,5,5,.12)}
+.steps li::before{content:counter(s,decimal-leading-zero);position:absolute;left:0;top:.95em;font-size:.7rem;letter-spacing:.14em;opacity:.5}
+.ticks li{position:relative;padding:.35em 0 .35em 1.6rem;font-size:1.08rem;line-height:1.55}
+.ticks li::before{content:"–";position:absolute;left:0;opacity:.5}
+.glance{width:100%;max-width:58ch;margin:2.4em 0 1.2em;border-collapse:collapse}
+.glance caption{text-align:left;padding-bottom:.8em}
+.glance th,.glance td{padding:.8em 0;border-top:1px solid rgba(5,5,5,.2);text-align:left;font-size:1.05rem;font-weight:300}
+.glance thead th{font-size:.7rem;font-weight:400;letter-spacing:.18em;text-transform:uppercase;opacity:.5;border-top:0}
+.glance tbody tr:last-child th,.glance tbody tr:last-child td{border-bottom:1px solid rgba(5,5,5,.2)}
+.glance a:hover{opacity:.6}
+.qa{margin:0;max-width:58ch;display:grid;gap:clamp(20px,3.5vh,32px)}
+.qa dt{font-size:1.1rem;font-weight:400;margin-bottom:.3em}
+.qa dd{margin:0;font-size:1.06rem;line-height:1.6;opacity:.85}
+/* Unconfirmed copy: visible so it can't be missed. Remove the span once confirmed. */
+.todo{background:rgba(255,214,102,.45);padding:0 .2em}
+/* Each offer: compact columns so the whole offer fits one window, and snaps into place on scroll. */
+.offer-head{display:grid;grid-template-columns:1fr;gap:.4em;margin-bottom:clamp(10px,2vh,24px)}
+.studio-body .offer-head p{margin:0 0 .5em}
+.studio-body .offer-head .label{margin-bottom:.8em}
+.studio-body .offer .offer-head h2{margin:0 0 .15em;font-size:clamp(1.9rem,3vw,2.6rem)}
+.studio-body .offer-head .big{font-size:clamp(1.1rem,1.5vw,1.3rem)}
+.studio-body .offer-head p{font-size:1.05rem;line-height:1.5}
+.studio-body .offer-head .label{margin-bottom:.4em}
+.offer-cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:clamp(20px,3vw,36px);align-items:start}
+.offer-cols h3{margin:0 0 .6em}
+.offer-cols .col h3:not(:first-child){margin-top:1.1em}
+.studio-body .offer .steps li{padding:.45em 0 .45em 2.2rem;font-size:1.05rem;line-height:1.5}
+.studio-body .offer .steps li::before{top:.75em}
+.studio-body .offer .ticks li{padding:.25em 0 .25em 1.4rem;font-size:1.05rem;line-height:1.5}
+.studio-body .offer .col p{font-size:1.05rem;line-height:1.5}
+.offer-foot{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:14px var(--gutter);margin-top:clamp(10px,2vh,24px);padding-top:clamp(10px,1.6vh,18px);border-top:1px solid rgba(5,5,5,.2)}
+.studio-body .offer-foot p{margin:0;max-width:56ch;font-size:1.05rem;line-height:1.5}
+@media (min-width:821px){
+  html{scroll-snap-type:y proximity}
+  .studio-body .offer{min-height:100svh;display:flex;flex-direction:column;justify-content:center;padding:clamp(8px,1.5vh,32px) 0;scroll-snap-align:start}
+}
+@media (max-width:820px){
+  .offer-head{grid-template-columns:1fr}
+  .studio-long{grid-template-columns:1fr;gap:0}
+  .studio-side{position:static}
+  .jump{flex-flow:row wrap;gap:.2em 1.4em}
+}
+
+/* Studio page: header (Zaira Christa + menu) stays frozen at the top while the offers scroll.
+   Sticky keeps the layout unchanged; the header ignores clicks except on its own links. */
+.studio-page .site-header{position:sticky;top:0;z-index:10;pointer-events:none}
+.studio-page .site-header a{pointer-events:auto}
+.studio-page .home-link{background:var(--bg);padding:.4em .6em .4em 0}
+@media (min-width:821px){
+  /* keep offer text clear of the frozen menu in the top-right corner */
+  .studio-body .offer-head{padding-right:clamp(90px,9vw,140px)}
+}
+
+/* ---- Hire-me call to action: one loud, consistent path to the form from every page ---- */
+.nav-cta{padding:.7em 1.2em;margin-top:.3em;background:var(--ink);color:var(--bg);border:1px solid var(--ink);font-weight:500;transition:background .3s ease,color .3s ease}
+.nav-cta:hover,.nav-cta[aria-current="page"]{background:transparent;color:var(--ink)}
+.btn-ghost{background:transparent;color:var(--ink)}
+.btn-ghost:hover{background:var(--ink);color:var(--bg)}
+.avail{display:inline-flex;align-items:center;gap:.7em;margin:0 0 1.4em;font-size:.75rem;letter-spacing:.18em;text-transform:uppercase}
+.avail::before{content:"";width:.6em;height:.6em;border-radius:50%;background:#3f8a5a;box-shadow:0 0 0 0 rgba(63,138,90,.5);animation:avail 2.2s ease-out infinite}
+@keyframes avail{to{box-shadow:0 0 0 .7em rgba(63,138,90,0)}}
+@media (prefers-reduced-motion:reduce){.avail::before{animation:none}}
+.cta-band{margin:clamp(56px,10vh,104px) 0 0;padding:clamp(28px,5vw,56px);border:1px solid var(--ink);display:grid;gap:1em;justify-items:start}
+.cta-band h2{margin:0;font-size:clamp(1.8rem,4vw,3.2rem);font-weight:300;letter-spacing:-.03em;line-height:1}
+.cta-band p{margin:0;max-width:44ch;line-height:1.5}
+.contact-center form{text-align:left;width:100%;max-width:560px;margin:0 auto}
+.contact-center .contact-or{margin:clamp(24px,4vh,36px) 0 .6em;font-size:.75rem;letter-spacing:.18em;text-transform:uppercase;opacity:.6}
+#form-status{margin:0;min-height:1.4em;font-size:.95rem}
+
+/* ---- Contact: headline on the left, form beside it ---- */
+.contact-split{flex:1;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,560px);gap:clamp(32px,7vw,120px);align-items:center;width:100%}
+.contact-split .contact-intro{display:flex;flex-direction:column;align-items:flex-start;text-align:left}
+.contact-split h1.tight{font-size:clamp(2.4rem,5.2vw,5.5rem);max-width:12ch;margin:0 0 .4em;font-weight:400}
+.contact-split .lede{margin:0 0 clamp(28px,5vh,48px);max-width:34ch}
+.contact-split .contact-mail{font-size:clamp(1.1rem,2vw,1.6rem);margin-bottom:0}
+.contact-split form{max-width:none;margin:0}
+@media (max-width:820px){.contact-split{grid-template-columns:minmax(0,1fr);align-items:start}}
+/* Contact: centre the whole composition and the headline text */
+.contact-split{max-width:1200px;margin-inline:auto;justify-content:center;padding-inline:var(--gutter)}
+.contact-split .contact-intro{align-items:center;text-align:center}
+.contact-split h1.tight,.contact-split .lede{margin-inline:auto}
+/* Contact: wider block, truly centred in the viewport height */
+.contact-page .site-header{position:absolute;top:0;left:0;right:0;z-index:5}
+.contact-page .site-foot{padding-top:clamp(10px,1.8vh,16px)}
+.contact-split.page{max-width:1600px;padding-block:clamp(80px,12vh,140px)}
+.contact-split{grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:clamp(40px,8vw,160px)}
+.contact-split h1.tight{font-size:clamp(2.8rem,6.4vw,7rem);max-width:13ch}
+.contact-split .lede{max-width:40ch;font-size:clamp(1.05rem,1.4vw,1.3rem)}
+@media (max-width:820px){.contact-split{grid-template-columns:minmax(0,1fr)}}
+
+/* Studio: How it works and FAQ side by side */
+.studio-body .pair{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(32px,5vw,80px);align-items:start}
+.studio-body .pair section{min-width:0}
+@media (max-width:1100px){.studio-body .pair{grid-template-columns:minmax(0,1fr)}}
+
+/* Studio: left column fills the screen height and centres its content, staying put while the offers scroll */
+@media (min-width:821px){
+  .studio-side{top:0 !important;height:100vh;height:100svh;display:flex;flex-direction:column;justify-content:center}
+}

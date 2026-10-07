@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hire me: Zaira Christa</title>
+<meta name="description" content="Hire Zaira Christa for brand strategy, content and websites for independent venues in London. Reply within two working days.">
+<link rel="icon" type="image/svg+xml" href="assets/icons/favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/icons/favicon-32.png">
+<link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/site.css">
+<link rel="stylesheet" href="css/menu.css">
+</head>
+<body class="contact-page">
+<header class="site-header">
+  <a class="home-link" href="index.html">← ZC Studios</a>
+  <div class="menu" id="menu">
+    <button class="menu-trigger" id="menu-trigger" type="button" aria-label="Menu" aria-expanded="false" aria-controls="menu-nav"></button>
+    <nav class="menu-nav" id="menu-nav" aria-label="Main">
+    <a href="index.html">Home</a>
+    <a href="about.html">About</a>
+    <a href="studio.html">Studio</a>
+    <a href="playground.html">Playground</a>
+    <a class="nav-cta" href="contact.html" aria-current="page">Hire me</a>
+    </nav>
+  </div>
+</header>
+
+<main class="page contact-split">
+  <div class="contact-intro">
+  <p class="avail">Open to new clients</p>
+  <h1 class="tight">Hire me to look after <em>your room.</em></h1>
+  <p class="lede">Tell me about your venue. A few lines is enough. I read every message myself, reply within two working days, and the first call is free.</p>
+  <p class="contact-or">Prefer email?</p>
+  <a class="contact-mail" href="mailto:info@zairachrista.studio">info@zairachrista.studio</a>
+  </div>
+  <form id="enquiry-form" novalidate>
+    <label>Your name<input name="name" type="text" autocomplete="name" required></label>
+    <label>Venue<input name="venue" type="text" autocomplete="organization"></label>
+    <label>Email<input name="email" type="email" autocomplete="email" required></label>
+    <label>What do you need?
+      <select name="interest">
+        <option>Not sure</option>
+        <option>Venue Diagnosis</option>
+        <option>Venue Relaunch</option>
+        <option>Website Build</option>
+        <option>Monthly Partner</option>
+      </select>
+    </label>
+    <label>Tell me about your room<textarea name="message" required></textarea></label>
+    <label>How did you find me?
+      <select name="findMe">
+        <option value="">Choose one</option>
+        <option>Website</option>
+        <option>Instagram</option>
+        <option>Other</option>
+      </select>
+    </label>
+    <div class="hp" aria-hidden="true"><label>Company website<input name="companyWebsite" type="text" tabindex="-1" autocomplete="off"></label></div>
+    <button class="btn" type="submit">Send, and let&rsquo;s talk <span aria-hidden="true">→</span></button>
+    <p id="form-status" role="status" aria-live="polite"></p>
+  </form>
+</main>
+
+<footer class="site-foot">
+  <p>ZC Studios, led by Zaira Christa. Cultural strategy and creative work for independent venues. London.</p>
+  <p class="copy">© 2026 ZC Studios</p>
+</footer>
+<script src="js/contact.js"></script>
+<script src="js/menu.js" defer></script>
+</body>
+</html>

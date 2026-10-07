@@ -1,0 +1,86 @@
+/* Playground: an endless, draggable collage canvas. Builds on site.css tokens. */
+:root{--dur:.85s;--ease:cubic-bezier(.7,0,.2,1)}
+html,body{height:100%;overflow:hidden;overscroll-behavior:none}
+.sr-only{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+
+/* ---- Canvas ---- */
+.canvas{position:fixed;inset:0;overflow:clip;touch-action:none;cursor:grab;user-select:none;-webkit-user-select:none;-webkit-touch-callout:none}
+.canvas.dragging,.canvas.dragging .tile{cursor:grabbing}
+.world{position:absolute;left:0;top:0;will-change:transform}
+.copy{position:absolute;left:0;top:0}
+
+.tile{position:absolute;display:block;padding:0;margin:0;border:0;background:none;overflow:hidden;color:#fff;font:inherit;text-align:left;cursor:pointer;transition:transform var(--dur) var(--ease),opacity .6s ease}
+.tile:focus-visible{outline:2px solid #fff;outline-offset:-4px}
+.ph{position:absolute;inset:0;background:linear-gradient(var(--a,155deg),var(--c1),var(--c2))}
+.fill{position:absolute;inset:0}
+.zoom{overflow:hidden;background:#fff}
+.zoom.ph{background:linear-gradient(var(--a,155deg),var(--c1),var(--c2))}
+.media{position:absolute;inset:0;display:block;width:100%;height:100%;object-fit:cover;-webkit-user-drag:none}
+.fill .media{pointer-events:none}
+.stack-img{display:block;width:100%;height:auto;pointer-events:none;-webkit-user-drag:none}
+.zoom.scrolly{overflow-y:auto;overscroll-behavior:contain;scroll-snap-type:y mandatory;scrollbar-width:none;cursor:ns-resize}
+.zoom.scrolly::-webkit-scrollbar{display:none}
+.zoom.scrolly .stack-img{scroll-snap-align:start}
+.zoom.scrolly:focus-visible{outline:2px solid currentColor;outline-offset:4px}
+.detail .hint{margin:1.6em 0 0;font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;opacity:.55}
+.shots{display:flex;gap:1.2em;margin-top:1.6em}
+.shots button{padding:.3em 0;border:0;border-bottom:1px solid transparent;background:none;color:inherit;font:inherit;font-size:.75rem;letter-spacing:.18em;opacity:.45;cursor:pointer}
+.shots button[aria-pressed="true"]{opacity:1;border-bottom-color:currentColor}
+.shots button:focus-visible{outline:2px solid currentColor;outline-offset:3px}
+.tile.has-media{background:#fff}
+.tile.has-media::after{content:"";position:absolute;inset:0;border:1px solid rgba(0,0,0,.08);pointer-events:none}
+
+/* Hover film: translucent black with the details on top */
+.film{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:flex-end;gap:.35em;padding:clamp(12px,1.2vw,18px);background:rgba(0,0,0,.55);opacity:0;transition:opacity .35s ease;pointer-events:none}
+.film .t{font-size:1rem;font-weight:400;line-height:1.2}
+.film .m{font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;opacity:.7}
+.tile.peek .film,.tile:focus-visible .film{opacity:1}
+@media (hover:hover){
+  .canvas:not(.dragging):not(.is-open) .tile:hover .film{opacity:1}
+}
+
+/* Opening a piece: everything else leaves the frame */
+.canvas.is-open .tile{opacity:0;pointer-events:none}
+
+/* ---- Intro ---- */
+.intro{position:fixed;inset:0;z-index:10;display:grid;place-items:center;padding:var(--gutter);pointer-events:none;transition:opacity 1s ease,visibility 1s}
+.intro.gone{opacity:0;visibility:hidden}
+.intro-inner{position:relative;max-width:min(94vw,1000px);padding:clamp(20px,4vw,56px);text-align:center}
+.intro-inner::before{content:"";position:absolute;inset:-28% -20%;z-index:-1;background:radial-gradient(closest-side,rgba(255,255,255,.97),rgba(255,255,255,.9) 55%,rgba(255,255,255,0));filter:blur(38px)}
+.intro .eyebrow{margin-bottom:1.4em;opacity:.7}
+.intro-title{margin:0 0 .4em;font-weight:300;line-height:.92;letter-spacing:-.045em;font-size:clamp(3rem,9vw,8rem)}
+.intro-title em{font-style:italic;font-weight:200}
+.intro .lede{max-width:34ch;margin:0 auto}
+.look{pointer-events:auto;display:inline-flex;align-items:center;gap:.9em;margin-top:clamp(20px,4vh,40px);padding:.8em 0;border:0;border-bottom:1px solid currentColor;background:none;color:var(--ink);font:inherit;font-size:.75rem;letter-spacing:.18em;text-transform:uppercase;cursor:pointer}
+.look span{display:inline-block;animation:nudge 2.2s ease-in-out infinite}
+@keyframes nudge{50%{transform:translateX(6px)}}
+
+/* ---- Lightbox (enlarged piece) ---- */
+.lightbox{position:fixed;inset:0;z-index:20;cursor:zoom-out}
+.lightbox:focus{outline:none}
+.lightbox[hidden]{display:none}
+.zoom{position:absolute;transition:left var(--dur) var(--ease),top var(--dur) var(--ease),width var(--dur) var(--ease),height var(--dur) var(--ease)}
+.detail{position:absolute;cursor:default;opacity:0;transform:translateY(10px);transition:opacity .3s ease,transform .3s ease}
+.detail.on{opacity:1;transform:none;transition:opacity .6s ease .45s,transform .7s var(--ease) .45s}
+.detail .k{margin:0 0 1.2em;font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;opacity:.55}
+.detail h2{margin:0 0 .5em;font-weight:300;letter-spacing:-.03em;line-height:1;font-size:clamp(1.8rem,3.2vw,2.8rem)}
+.detail p{margin:0;max-width:36ch;font-size:1rem;line-height:1.55}
+.detail .look{margin-top:clamp(20px,4vh,36px)}
+
+
+@media (prefers-reduced-motion:reduce){
+  :root{--dur:.01s}
+  .look span{animation:none}
+  .detail.on{transition-delay:0s}
+}
+
+/* ---- Deep red backdrop ---- */
+:root{--wine:#5c0b12}
+html,body.playground{background:var(--wine);color:#f6ece8}
+.canvas{background:var(--wine)}
+.intro-inner::before{background:radial-gradient(closest-side,rgba(92,11,18,.97),rgba(92,11,18,.9) 55%,rgba(92,11,18,0))}
+.look{color:inherit}
+.detail{color:#f6ece8}
+.detail .look{color:inherit}
+.tile:focus-visible{outline-color:#fff}
+:focus-visible{outline-color:#f6ece8}
