@@ -167,7 +167,8 @@
             sum += colW * ITEMS[k].ratio;
           }
           const extra = (H - sum - gap * n) / n; // added to each gap
-                    const score = Math.abs(extra);
+                    if (extra < -gap * 0.15) continue;
+          const score = Math.abs(extra);
           if (best && score >= best.score) continue;
           let top = 0;
           const placed = seq.map((k) => {
