@@ -16,23 +16,23 @@
   const DUR = reduceMotion ? 20 : 850;
   const WHEEL_SPEED = 0.5; // scroll/trackpad sensitivity (1 = native speed)
 
-  /* ---- Real pieces: `src` is the image (or the poster frame when `video` is set).
+  /* ---- Real pieces: `src` is the image (or the poster frame when `gif` is set).
      `ratio` is height / width of the media, used for the close-up. ---- */
   const BASE = 'assets/images/playground/';
   const PIECES = [
-    { title: 'Desktop OS', kind: 'Web', year: '2026', src: 'desktop-os.jpg', video: 'recording-3.mp4', ratio: 1240 / 2520,
+    { title: 'Desktop OS', kind: 'Web', year: '2026', src: 'desktop-os.jpg', gif: 'desktop-os.gif', ratio: 1240 / 2520,
       desc: 'A portfolio that behaves like a desktop. Windows, a character sheet, sticky notes and a dock.' },
     { title: 'Tagging the Body', kind: 'Typography', year: '2026', src: 'tagging-the-body.png', ratio: 699 / 995,
       desc: 'A type study in tall, condensed letterforms. Tan fill, red outline.' },
-    { title: 'Mandaloun', kind: 'Website', year: '2026', src: 'recording-1.jpg', video: 'recording-1.mp4', ratio: 492 / 960,
+    { title: 'Mandaloun', kind: 'Website', year: '2026', src: 'recording-1.jpg', gif: 'mandaloun.gif', ratio: 492 / 960,
       desc: 'A website for a Lebanese restaurant in London, built around a cedar tree.' },
-    { title: 'Portfolio Concept', kind: 'Website', year: '2026', src: 'recording-2.jpg', video: 'recording-2.mp4', ratio: 528 / 960,
+    { title: 'Portfolio Concept', kind: 'Website', year: '2026', src: 'recording-2.jpg', gif: 'portfolio-concept.gif', ratio: 528 / 960,
       desc: 'A portfolio concept where the homepage is one big statement in type.' },
-    { title: 'Squish the Letters', kind: 'Website', year: '2026', src: 'recording-4.jpg', video: 'recording-4.mp4', ratio: 828 / 1920,
+    { title: 'Squish the Letters', kind: 'Website', year: '2026', src: 'recording-4.jpg', gif: 'squish-the-letters.gif', ratio: 828 / 1920,
       desc: 'A homepage where you can push and squash the letters of my name.' },
-    { title: 'Things To Tell Tim Today', kind: 'Website', year: '2026', src: 'recording-5.jpg', video: 'recording-5.mp4', ratio: 1252 / 1920,
+    { title: 'Things To Tell Tim Today', kind: 'Website', year: '2026', src: 'recording-5.jpg', gif: 'things-to-tell-tim.gif', ratio: 1252 / 1920,
       desc: 'A small note on a cherry blossom tree. Open it to see what I have to tell Tim today.' },
-    { title: 'Falling Photos', kind: 'Website', year: '2026', src: 'falling-photos.jpg', video: 'falling-photos.mp4', ratio: 960 / 1920,
+    { title: 'Falling Photos', kind: 'Website', year: '2026', src: 'falling-photos.jpg', gif: 'falling-photos.gif', ratio: 960 / 1920,
       desc: 'A website where photographs fall onto the page and pile up on top of the content.' },
     { title: 'Museum of Us', kind: 'Website', year: '2026', images: ['museum-of-us-1.png', 'museum-of-us-2.png'], ratio: (2 * 1004) / 1975, viewRatio: 1004 / 1975,
       desc: 'A permanent archive of the things we keep. A quiet, typewriter-set website sorting objects into eight collections.' },
@@ -42,7 +42,7 @@
       desc: 'A logotype for Muni. Tall white serif capitals over a warm, blurred amber field.' },
   ].map((p) => {
     const images = p.images && p.images.map((f) => BASE + f);
-    return { ...p, images, src: images ? images[0] : BASE + p.src, video: p.video && BASE + p.video };
+    return { ...p, images, src: images ? images[0] : BASE + p.src, gif: p.gif && BASE + p.gif };
   });
 
   const ITEMS = PIECES;
@@ -84,46 +84,30 @@
     });
   }
 
-  /* Video tiles only play while they are on screen; off-screen ones drop back to
-     their still frame so the repeated copies of the canvas never decode together. */
-  function setTileVideo(tile, on) {
+  /* Animated tiles load only while on screen; off-screen copies use their still frame. */
+  function setTileAnimation(tile, on) {
     const fill = tile.querySelector('.fill');
-    let video = fill.querySelector('video');
+    let animation = fill.querySelector('.animation');
     if (!on) {
-      if (video) { video.pause(); video.remove(); }
+      if (animation) animation.remove();
       return;
     }
-    if (video) { video.play().catch(() => {}); return; }
-    video = document.createElement('video');
-    video.className = 'media';
-    video.src = ITEMS[tile.dataset.item].video;
-    video.setAttribute('muted', '');
-    video.muted = true;
-    video.loop = true;
-    video.playsInline = true;
-    video.setAttribute('playsinline', '');
-    video.setAttribute('autoplay', '');
-    video.disableRemotePlayback = true;
-    video.preload = 'auto';
-    video.tabIndex = -1;
-    video.setAttribute('aria-hidden', 'true');
-    video.addEventListener('canplay', () => { if (video.paused) video.play().catch(() => {}); });
-    fill.append(video);
-    video.play().catch(() => {});
+    if (animation) return;
+    animation = document.createElement('img');
+    animation.className = 'media animation';
+    animation.src = ITEMS[tile.dataset.item].gif;
+    animation.alt = '';
+    animation.draggable = false;
+    animation.decoding = 'async';
+    animation.setAttribute('aria-hidden', 'true');
+    fill.append(animation);
   }
-  // Safari (Low Power Mode, "Never Auto-Play") can refuse autoplay: retry on the first touch of the page
-  const wake = () => {
-    for (const v of world.querySelectorAll('video')) if (v.paused) v.play().catch(() => {});
-  };
-  for (const type of ['pointerdown', 'wheel', 'keydown']) {
-    addEventListener(type, wake, { once: true, passive: true });
-  }
-  const videoWatch = new IntersectionObserver((entries) => {
-    for (const en of entries) setTileVideo(en.target, en.isIntersecting && !opened);
+  const animationWatch = new IntersectionObserver((entries) => {
+    for (const en of entries) setTileAnimation(en.target, en.isIntersecting && !opened);
   }, { root: stage, rootMargin: '80px' });
 
   function build() {
-    if (videoWatch) videoWatch.disconnect();
+    animationWatch.disconnect();
     vw = stage.clientWidth;
     vh = stage.clientHeight;
     const gap = vw < 600 ? 10 : Math.max(24, Math.min(48, Math.round(vw * 0.025)));
@@ -209,7 +193,7 @@
           el.setAttribute('aria-label', `${item.title}, ${item.kind}, ${item.year}`);
           if (!primary) { el.tabIndex = -1; el.setAttribute('aria-hidden', 'true'); }
           if (item.src) el.classList.add('has-media');
-          if (item.video && videoWatch) videoWatch.observe(el);
+          if (item.gif) animationWatch.observe(el);
           const ph = document.createElement('span');
           ph.className = 'fill';
           fillMedia(ph, item);
@@ -393,7 +377,7 @@
     const item = ITEMS[tile.dataset.item];
     const r = tile.getBoundingClientRect();
     opened = { tile, rect: r };
-    if (item.video) setTileVideo(tile, false); // the close-up plays its own copy
+    if (item.gif) setTileAnimation(tile, false); // the close-up plays its own copy
     stage.classList.add('is-open');
 
     // Everything else is pushed straight away from the chosen piece, out of frame
@@ -411,24 +395,15 @@
     const zoom = document.createElement('div');
     zoom.className = 'zoom';
     fillMedia(zoom, item);
-    if (item.video) {
-      const video = document.createElement('video');
-      video.className = 'media';
-      video.src = item.video;
-      video.poster = item.src;
-      video.setAttribute('muted', '');
-      video.muted = true; // browsers only autoplay silent video
-      video.loop = true;
-      video.playsInline = true;
-      video.setAttribute('playsinline', '');
-      video.setAttribute('autoplay', '');
-      video.controls = false;
-      video.tabIndex = -1;
-      video.setAttribute('aria-hidden', 'true');
-      video.addEventListener('canplay', () => { if (video.paused) video.play().catch(() => {}); });
-      video.preload = 'auto';
-      zoom.append(video);
-      video.play().catch(() => {});
+    if (item.gif) {
+      const animation = document.createElement('img');
+      animation.className = 'media animation';
+      animation.src = item.gif;
+      animation.alt = '';
+      animation.draggable = false;
+      animation.decoding = 'async';
+      animation.setAttribute('aria-hidden', 'true');
+      zoom.append(animation);
     }
     place(zoom, r.left, r.top, r.width, r.height);
 
@@ -518,7 +493,7 @@
     const { tile, rect } = opened;
     const finish = () => {
       tile.style.visibility = '';
-      if (ITEMS[tile.dataset.item].video && videoWatch) setTileVideo(tile, true);
+      if (ITEMS[tile.dataset.item].gif) setTileAnimation(tile, true);
       lightbox.hidden = true;
       lightbox.replaceChildren();
       opened = null;
@@ -536,7 +511,7 @@
   }
 
   lightbox.addEventListener('click', (e) => {
-    if (e.target.closest('video') || (e.target.closest('.detail') && !e.target.closest('.close'))) return;
+    if (e.target.closest('.animation') || (e.target.closest('.detail') && !e.target.closest('.close'))) return;
     close();
   });
 
