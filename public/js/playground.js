@@ -118,7 +118,7 @@
   for (const type of ['pointerdown', 'wheel', 'keydown']) {
     addEventListener(type, wake, { once: true, passive: true });
   }
-  const videoWatch = reduceMotion ? null : new IntersectionObserver((entries) => {
+  const videoWatch = new IntersectionObserver((entries) => {
     for (const en of entries) setTileVideo(en.target, en.isIntersecting && !opened);
   }, { root: stage, rootMargin: '80px' });
 
@@ -420,10 +420,15 @@
       video.muted = true; // browsers only autoplay silent video
       video.loop = true;
       video.playsInline = true;
-      video.controls = true;
+      video.setAttribute('playsinline', '');
+      video.setAttribute('autoplay', '');
+      video.controls = false;
+      video.tabIndex = -1;
+      video.setAttribute('aria-hidden', 'true');
+      video.addEventListener('canplay', () => { if (video.paused) video.play().catch(() => {}); });
       video.preload = 'auto';
       zoom.append(video);
-      video.play().catch(() => {}); // blocked autoplay just leaves the poster + play button
+      video.play().catch(() => {});
     }
     place(zoom, r.left, r.top, r.width, r.height);
 
