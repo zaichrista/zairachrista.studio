@@ -3,3 +3,6 @@ node_modules/
 data/*.db
 data/*.db-*
 .DS_Store
+
+# Local screen-recording exports (the original recordings and deployed assets live elsewhere)
+source-media/recordings/gif-exports/

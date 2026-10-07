@@ -3,6 +3,7 @@ export const INTEREST_OPTIONS = [
   'Website Build',
   'Monthly Partner',
   'Venue Diagnosis',
+  'Project work',
   'Not sure',
 ];
 

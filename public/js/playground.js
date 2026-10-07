@@ -20,6 +20,8 @@
      `ratio` is height / width of the media, used for the close-up. ---- */
   const BASE = 'assets/images/playground/';
   const PIECES = [
+    { title: 'Saints of the Dance Floor', kind: 'Poster', year: '2026', src: 'upcoming-02.png', ratio: 2481 / 3509,
+      desc: 'A typographic poster for Saints of the Dance Floor, pairing red script with oversized black serif lettering.' },
     { title: 'Desktop OS', kind: 'Web', year: '2026', src: 'desktop-os.jpg', gif: 'desktop-os.gif', ratio: 1240 / 2520,
       desc: 'A portfolio that behaves like a desktop. Windows, a character sheet, sticky notes and a dock.' },
     { title: 'Tagging the Body', kind: 'Typography', year: '2026', src: 'tagging-the-body.png', ratio: 699 / 995,

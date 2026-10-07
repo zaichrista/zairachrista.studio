@@ -20,6 +20,9 @@
 .gallery.is-fanning img{transition:transform 1.3s cubic-bezier(.22,.8,.2,1),opacity .7s ease;transition-delay:var(--td,0s)}
 .gallery.is-calm .gcol{overflow-y:auto}
 .gallery.is-calm .gstrip{position:static}
+.gallery.is-static{overflow:visible;touch-action:auto}
+.gallery.is-static .gcol{overflow:visible}
+.gallery.is-static .gstrip{position:static;transform:none!important;will-change:auto}
 
 @media (min-width:821px){.project-page{height:100vh;height:100dvh;overflow:hidden}.proj{grid-template-rows:minmax(0,1fr)}.proj-info{overflow-y:auto}}
 @media (max-width:820px){

@@ -265,3 +265,97 @@ select:focus{outline:none;border-bottom-color:var(--ink)}
 @media (min-width:821px){
   .studio-side{top:0 !important;height:100vh;height:100svh;display:flex;flex-direction:column;justify-content:center}
 }
+
+/* ---- Studio: stage-led offer cards ---- */
+html:has(body.studio-page){scroll-snap-type:none}
+.studio-page{min-height:100vh;min-height:100svh;display:flex;flex-direction:column}
+.studio-page .site-header{position:relative;pointer-events:auto}
+.studio-page .page{flex:1;width:100%}
+.studio-main{max-width:1240px;margin:0 auto;padding-top:clamp(44px,8vh,96px)}
+.studio-intro{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(280px,.8fr);column-gap:clamp(36px,9vw,140px);align-items:end;padding-bottom:clamp(56px,10vh,112px)}
+.studio-intro .eyebrow{grid-column:1/-1;margin-bottom:clamp(18px,3vh,30px)}
+.studio-intro h1.tight{max-width:none;margin:0;font-size:clamp(3rem,7.5vw,7rem);line-height:.92}
+.studio-intro-copy{padding-bottom:.3em}
+.studio-intro-copy p{max-width:43ch;margin:0 0 1.1em;font-size:1rem;line-height:1.6}
+.studio-intro-copy .studio-lede{font-size:clamp(1.25rem,2vw,1.8rem);font-weight:300;line-height:1.35;letter-spacing:-.01em}
+.studio-offers{padding:clamp(32px,6vh,64px) 0 clamp(64px,11vh,120px);border-top:1px solid rgba(5,5,5,.2)}
+.offers-heading{display:flex;align-items:end;justify-content:space-between;gap:24px;margin-bottom:clamp(24px,4vh,40px)}
+.offers-heading .label{margin-bottom:.8em}
+.offers-heading h2,.studio-how h2,.studio-faq h2{margin:0;font-size:clamp(1.8rem,3.5vw,3rem);font-weight:300;letter-spacing:-.035em;line-height:1.05}
+.offers-heading>p{max-width:28ch;margin:0;font-size:.95rem;line-height:1.5;opacity:.7}
+.offer-tabs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border-top:1px solid rgba(5,5,5,.28);border-bottom:1px solid rgba(5,5,5,.28)}
+.offer-tab{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:clamp(10px,2vw,24px);min-width:0;padding:1.1em clamp(10px,2vw,24px) 1.1em 0;border:0;border-right:1px solid rgba(5,5,5,.18);background:transparent;color:var(--ink);text-align:left;font:inherit;cursor:pointer;transition:background .25s ease,color .25s ease,padding .25s ease}
+.offer-tab:last-child{border-right:0;padding-right:0;padding-left:clamp(10px,2vw,24px)}
+.offer-tab:nth-child(2){padding-left:clamp(10px,2vw,24px)}
+.offer-tab[aria-selected="true"]{background:var(--ink);color:var(--bg);padding-left:clamp(12px,2vw,26px)}
+.tab-number{align-self:start;padding-top:.25em;font-size:.68rem;letter-spacing:.14em;opacity:.58}
+.offer-tab strong,.offer-tab small{display:block}
+.offer-tab strong{font-size:clamp(1rem,1.5vw,1.35rem);font-weight:400;line-height:1.1}
+.offer-tab small{margin-top:.35em;font-size:.72rem;line-height:1.3;opacity:.65}
+.tab-arrow{font-size:1.2rem;opacity:.65;transition:transform .2s ease}
+.offer-tab[aria-selected="true"] .tab-arrow{transform:rotate(45deg);opacity:1}
+.offer-panel{padding-top:clamp(20px,3vh,32px)}
+.offer-panel[hidden]{display:none}
+.offer-card{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(250px,.85fr);gap:clamp(28px,6vw,88px);padding:clamp(28px,5vw,60px);border:1px solid rgba(5,5,5,.25);background:rgba(255,255,255,.22)}
+.offer-card-featured{border-color:var(--ink);border-width:2px}
+.offer-card-main{max-width:62ch}
+.offer-kicker{margin:0 0 1em;font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;opacity:.62}
+.offer-card h3{margin:0 0 .35em;font-size:clamp(2.2rem,4.5vw,4.4rem);font-weight:300;line-height:.98;letter-spacing:-.04em}
+.offer-summary{max-width:34ch;margin:0 0 .8em;font-size:clamp(1.2rem,2vw,1.8rem);font-weight:300;line-height:1.35}
+.offer-description{max-width:56ch;margin:0;font-size:1rem;line-height:1.6;opacity:.76}
+.offer-card-detail{align-self:center;padding-left:clamp(20px,3vw,40px);border-left:1px solid rgba(5,5,5,.2)}
+.offer-card-detail h4{margin:0 0 .9em;font-size:.72rem;font-weight:500;letter-spacing:.16em;text-transform:uppercase}
+.offer-card-detail ul{margin:0 0 1.2em;padding:0;list-style:none}
+.offer-card-detail li{position:relative;padding:.55em 0 .55em 1.25em;border-top:1px solid rgba(5,5,5,.12);font-size:.95rem;line-height:1.45}
+.offer-card-detail li:last-child{border-bottom:1px solid rgba(5,5,5,.12)}
+.offer-card-detail li::before{content:"—";position:absolute;left:0;opacity:.55}
+.offer-fit{margin:0 0 1.4em;font-size:.9rem;line-height:1.5;opacity:.8}
+.offer-fit strong{font-weight:500;opacity:1}
+.offer-note{margin:0 0 1.1em;font-size:.82rem;line-height:1.5;opacity:.68}
+.offer-card .btn{font-size:.68rem}
+.offer-card-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(14px,2.4vw,28px)}
+.offer-card-grid .offer-card{grid-template-columns:1fr;gap:clamp(24px,4vh,40px);padding:clamp(22px,3vw,40px)}
+.offer-card-grid .offer-card h3{font-size:clamp(2rem,3vw,3rem)}
+.offer-card-grid .offer-card-detail{align-self:stretch;padding:clamp(20px,3vh,30px) 0 0;border-left:0;border-top:1px solid rgba(5,5,5,.2)}
+.project-work{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:clamp(32px,8vw,120px);padding:clamp(48px,9vh,96px) 0;border-top:1px solid rgba(5,5,5,.2)}
+.project-work .label{margin-bottom:1em}
+.project-work h2{margin:0 0 .4em;font-size:clamp(1.8rem,3.5vw,3rem);font-weight:300;letter-spacing:-.035em;line-height:1.05}
+.project-work-intro p:last-child,.project-work-detail p{max-width:52ch;margin:0 0 1em;font-size:1rem;line-height:1.6;opacity:.78}
+.project-work-detail .project-price{font-size:.75rem;letter-spacing:.14em;text-transform:uppercase;opacity:.58}
+.project-work-detail .text-link{margin-top:.3em}
+.text-link{display:inline-block;padding-bottom:.2em;border-bottom:1px solid currentColor;font-size:.72rem;letter-spacing:.12em;text-transform:uppercase}
+.text-link:hover{opacity:.62}
+.studio-how,.studio-faq{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:clamp(32px,8vw,120px);padding:clamp(48px,9vh,96px) 0;border-top:1px solid rgba(5,5,5,.2)}
+.studio-how .label,.studio-faq .label{margin-bottom:1em}
+.studio-how ol{counter-reset:stage;list-style:none;margin:0;padding:0}
+.studio-how li{counter-increment:stage;position:relative;padding:0 0 1.2em 2.8rem;font-size:1rem;line-height:1.55}
+.studio-how li::before{content:"0" counter(stage);position:absolute;left:0;top:.25em;font-size:.68rem;letter-spacing:.12em;opacity:.55}
+.studio-how li strong{font-weight:500}
+.faq-list details{border-top:1px solid rgba(5,5,5,.2)}
+.faq-list details:last-child{border-bottom:1px solid rgba(5,5,5,.2)}
+.faq-list summary{position:relative;list-style:none;cursor:pointer;padding:1em 2em 1em 0;font-size:1rem}
+.faq-list summary::-webkit-details-marker{display:none}
+.faq-list summary::after{content:"+";position:absolute;right:.2em;top:.7em;font-size:1.25rem;font-weight:300;transition:transform .2s ease}
+.faq-list details[open] summary::after{transform:rotate(45deg)}
+.faq-list details p{max-width:58ch;margin:0;padding:0 2em 1.2em 0;font-size:.95rem;line-height:1.55;opacity:.72}
+.studio-closing{display:grid;justify-items:start;gap:1em;padding:clamp(36px,6vw,72px);border:1px solid var(--ink)}
+.studio-closing .label{margin:0}
+.studio-closing h2{max-width:18ch;margin:0;font-size:clamp(2rem,4vw,4rem);font-weight:300;letter-spacing:-.04em;line-height:1}
+.studio-closing .btn{margin-top:.5em}
+@media (max-width:760px){
+  .studio-main{padding-top:clamp(36px,6vh,60px)}
+  .studio-intro{grid-template-columns:1fr;gap:clamp(24px,4vh,40px);padding-bottom:clamp(48px,8vh,72px)}
+  .studio-intro h1.tight{font-size:clamp(3.2rem,14vw,6rem)}
+  .studio-intro-copy{max-width:46ch}
+  .offers-heading{align-items:start;flex-direction:column}
+  .offer-tab{grid-template-columns:1fr auto;gap:8px;padding:.9em 10px .9em 0}
+  .offer-tab:nth-child(2),.offer-tab:last-child{padding-left:10px}
+  .tab-number{display:none}
+  .offer-tab small{max-width:15ch;font-size:.65rem}
+  .offer-card,.offer-card-grid .offer-card{grid-template-columns:1fr;gap:26px;padding:clamp(22px,6vw,36px)}
+  .offer-card-detail,.offer-card-grid .offer-card-detail{padding:22px 0 0;border-left:0;border-top:1px solid rgba(5,5,5,.2)}
+  .offer-card-grid{grid-template-columns:1fr}
+  .studio-how,.studio-faq,.project-work{grid-template-columns:1fr;gap:28px}
+}
+@media (max-width:400px){.offer-tab strong{font-size:.9rem}.offer-tab small{font-size:.6rem}.offer-tab{padding-right:5px}.offer-tab:nth-child(2),.offer-tab:last-child{padding-left:5px}}
+@media (prefers-reduced-motion:reduce){.offer-tab,.tab-arrow,.faq-list summary::after{transition:none}}

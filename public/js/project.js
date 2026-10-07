@@ -144,6 +144,11 @@
   }
 
   function init() {
+    if (document.body.dataset.slug === 'void') {
+      root.classList.remove('fan-pending');
+      gallery.classList.add('is-static');
+      return;
+    }
     if (calm) { root.classList.remove('fan-pending'); gallery.classList.add('is-calm'); return; }
     build(); paint();
     // wait for the move from the home page to land before fanning out
